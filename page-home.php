@@ -58,6 +58,7 @@ get_header(); ?>
 							<div class="green-panel pn">
 								<div class="green-header">
 									<h5>
+										<button type="button" class="btn btn-danger btn-xs clear-watch-list"><i class="fa fa-times"></i> clear list</button>
 										Watch List 
 										<small class="view-watch-list-link"><a href="#">view</a></small>
 									</h5>	
@@ -77,7 +78,7 @@ get_header(); ?>
 					<p class="description">Enter a stock symbol in the field below to get real time stats.</p>
 					<form class="form-inline style-form" id="search-stock-symbols">
 						<input type="text" class="form-control stock-symbol-input" placeholder="Enter Symbol">
-						<button type="submit" class="btn btn-theme">Sign in</button>	
+						<button type="submit" class="btn btn-theme">Find Symbol</button>	
 						<p class="stock-symbol-lookup-error"></p>
 					</form>
 					

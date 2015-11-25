@@ -158,7 +158,7 @@ function addStockToWatchList( stock_symbol, clicked_button ) {
 	// run the ajax request to retreive stock data
 	jQuery.post( localized_data.ajax_url, data, function(response) {
 		jQuery( clicked_button ).removeClass( 'btn btn-primary' ).addClass( 'btn btn-warning' ).html( '<i class="fa fa-times"></i> Remove from Watch List' ).removeClass( 'add-to-watch-list' ).addClass( 'remove-from-watch-list' ).attr( 'onclick', 'removeStockFromWatchList("'+stock_symbol+'", this)' );
-		console.log( response );
+		append_item_to_watch_list_container( stock_symbol );
 	});
 }
 
@@ -177,11 +177,54 @@ function removeStockFromWatchList( stock_symbol, clicked_button ) {
 	// run the ajax request to retreive stock data
 	jQuery.post( localized_data.ajax_url, data, function(response) {
 		jQuery( clicked_button ).removeClass( 'btn btn-warning' ).addClass( 'btn btn-primary' ).html( '<i class="fa fa-eye"></i> Add to Watch List' ).removeClass( 'remove-from-watch-list' ).addClass( 'add-to-watch-list' ).attr( 'onclick', 'addStockToWatchList("'+stock_symbol+'",this)' );
+		// Remove the item from our watch list container
+		jQuery( '.watch-list-panel' ).find( '.' + jQuery( clicked_button ).attr( 'data-attr-symbol' ) ).fadeOut( 'fast', function() {
+			jQuery( this ).remove();
+		});
 	});
 }
 
 /*
-*	Return an unformatted value in the proper money value format
+*	Append a new item to our watch list container
+*/
+function append_item_to_watch_list_container( stock_symbol ) {
+	/* Setup the data */
+	var data = {
+		'action': 'retreive_stock_symbol_overview',
+		'stock_symbol': stock_symbol.toUpperCase(),    // We pass php values differently!
+		'format': 'json'
+	};	
+	// run the ajax request to retreive stock data
+	jQuery.post( localized_data.ajax_url, data, function(response) {
+		// stock data response
+		console.log( response );
+		// variable definitions
+		var stock_data = JSON.parse( response );
+		var quote_data = stock_data['query']['results']['quote'];
+		var diagnostic_data = stock_data['query']['diagnostics'];
+		var price_container_class = ( quote_data.PercentChange.replace( '%', '' ) >= 0 ) ? 'watch-list-increase-price' : 'watch-list-decrease-price';
+		// build the item
+		var new_watch_list_item = '<div class="watched-stock ' + quote_data.symbol + '">' +
+						'<div class="desc">' +
+							'<h4 class="stock-name">' + quote_data.Name + '</h4>' +
+							'<section class="stock-details">' +
+								'<span class="stock-current-price">' + quote_data.Ask + '</span>' +
+								'<span class="stock-watch-change-container ' + price_container_class + '">' +
+									'<i class="fa fa-arrow-down"></i> ' + quote_data.Change + ' / ' + quote_data.PercentChange + '</span>' +
+							'</section>' +
+						'</div>' +
+					'</div>';
+		// append it to our list
+		jQuery( '.watch-list-panel' ).find( '.watch-list-interior-container' ).append( new_watch_list_item );
+		// scroll the container to display the newly appended item
+		jQuery( ".watch-list-interior-container" ).animate({
+			scrollTop: jQuery( ".watched-stock:last-child" ).position().top
+		}, 1000);
+	});
+}
+
+/*
+*	Return an unformatted value in the proper USD money value format
 */
 var money_format = new Intl.NumberFormat('en-US', {
   style: 'currency',

@@ -2305,14 +2305,14 @@ label {
 
 	.stock-change .first-section {
 		float: left;
-		font-size: 3em;
+		font-size: 2.5em;
 	}
 	
 	.stock-change .change-data {
 		display: inline-block;
 		float: left;
 		font-size: 1.35em;
-		margin-top: -3px;
+		margin-top: -9px;
 		text-align: right;
 	}
 	
@@ -2366,8 +2366,20 @@ label {
 	top: 15px;
 }
 
+.watch-list-panel .clear-watch-list {
+	float: left;
+	left: 25px;
+	position: absolute;
+	top: 10px;
+}
+	
 	.watch-list-panel .view-watch-list-link a {
 		color: #333333;
+	}
+	
+	.watch-list-panel .watch-list-interior-container {
+		height: 209px; /* height of the contianer - the height of the header */
+		overflow-y: scroll;
 	}
 	
 	.watch-list-panel .watched-stock {
@@ -2386,6 +2398,10 @@ label {
 .watch-list-panel .watched-stock .stock-name,
 .watch-list-panel .watched-stock .stock-symbol {
 	float: left;
+}
+
+.watch-list-panel .watched-stock .stock-name { 
+	width: 50%;
 }
 
 .watch-list-panel .watched-stock .stock-current-price {
@@ -2413,8 +2429,13 @@ label {
 	color: #EF6464;
 }
 
+.watch-list-panel .green-header {
+	margin-bottom: 0;
+}
+
 .watch-list-panel .watched-stock .stock-details {
 	display: inline-block;
 	float: right;
-	margin-top: -10px;
+	margin-top: -7px;
+	width: 50%;
 }	

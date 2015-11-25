@@ -79,6 +79,6 @@ function get_user_stock_watch_list() {
 	global $current_user;
     get_currentuserinfo();
 	$stock_watch_list = get_user_meta( $current_user->ID, 'user_stock_watch_list', true );
-	$watch_list_array = ( $stock_watch_list ) ? $stock_watch_list : array();
+	$watch_list_array = ( $stock_watch_list ) ? $stock_watch_list : '';
 	return json_decode( $watch_list_array, true );
 }

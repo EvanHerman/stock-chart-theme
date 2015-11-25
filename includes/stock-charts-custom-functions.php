@@ -179,44 +179,54 @@ add_action( 'login_form_top', 'add_custom_logo_to_login_form' );
 /**	
 *	Get the homepage watch list container details
 *	@since 0.1
+*	Note: Instead of looping, we should chain the events and send 1 API request
 */
 function get_homepage_watchlist() {
-	$watch_list_array = get_user_stock_watch_list();
-	if( ! empty( $watch_list_array ) ) {
-		foreach( $watch_list_array as $watched_stock ) {
-			$yql_query = 'select * from yahoo.finance.quotes where symbol in ("' . $watched_stock . '")';  
-			$yql_query_url = YAHOO_BASE_URL . "?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" . $watched_stock . "%22)%0A%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-			$query = wp_remote_get( $yql_query_url, array( 'timeout' => 120 ) );
-			// check and display error if present
-			if( is_wp_error( $query ) ) {
-				echo $query->getMessage();
-				return;
-			} else {
-				$query_body = json_decode( wp_remote_retrieve_body( $query ), true );
-				$stock_name = $query_body['query']['results']['quote']['Name'];
-				$current_price = $query_body['query']['results']['quote']['Bid'];
-				$percent_change = $query_body['query']['results']['quote']['PercentChange'];
-				$change = $query_body['query']['results']['quote']['Change'];
-				$change_icon = ( str_replace( '%', '', $change ) >= 0 ) ? '<i class="fa fa-arrow-up"></i>' : '<i class="fa fa-arrow-down"></i>';
-				$change_class = ( $change_icon == '<i class="fa fa-arrow-up"></i>' ) ? 'watch-list-increase-price' : 'watch-list-decrease-price';
-				?>
-					<div class="watched-stock">
-						<div class="desc">
-							<h4 class="stock-name"><?php echo $stock_name; ?> </h4>
-							<section class="stock-details">
-								<span class="stock-current-price">
-									<?php echo '$' . number_format( $current_price, 2 ); ?>
-								</span>
-								<span class="stock-watch-change-container <?php echo $change_class; ?>">
-									<?php echo $change_icon . ' ' . $change . ' / ' . $percent_change; ?>
-								</span>
-							</section>
+	?><div class="watch-list-interior-container nice-scroll-container"><?php
+		$watch_list_array = get_user_stock_watch_list();
+		if( ! empty( $watch_list_array ) ) {
+			foreach( $watch_list_array as $watched_stock ) {
+				$yql_query = 'select * from yahoo.finance.quotes where symbol in ("' . $watched_stock . '")';  
+				$yql_query_url = YAHOO_BASE_URL . "?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" . $watched_stock . "%22)%0A%09%09&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+				$query = wp_remote_get( $yql_query_url, array( 'timeout' => 120 ) );
+				// check and display error if present
+				if( is_wp_error( $query ) ) {
+					echo $query->getMessage();
+					return;
+				} else {
+					$query_body = json_decode( wp_remote_retrieve_body( $query ), true );
+					$stock_name = $query_body['query']['results']['quote']['Name'];
+					$stock_symbol = $query_body['query']['results']['quote']['symbol'];
+					$current_price = $query_body['query']['results']['quote']['Bid'];
+					$percent_change = $query_body['query']['results']['quote']['PercentChange'];
+					$change = $query_body['query']['results']['quote']['Change'];
+					$change_icon = ( str_replace( '%', '', $change ) >= 0 ) ? '<i class="fa fa-arrow-up"></i>' : '<i class="fa fa-arrow-down"></i>';
+					$change_class = ( $change_icon == '<i class="fa fa-arrow-up"></i>' ) ? 'watch-list-increase-price' : 'watch-list-decrease-price';
+					?>
+						<div class="watched-stock <?php echo $stock_symbol; ?>">
+							<div class="desc">
+								<h4 class="stock-name"><?php echo $stock_name; ?> </h4>
+								<section class="stock-details">
+									<span class="stock-current-price">
+										<?php echo '$' . number_format( $current_price, 2 ); ?>
+									</span>
+									<span class="stock-watch-change-container <?php echo $change_class; ?>">
+										<?php echo $change_icon . ' ' . $change . ' / ' . $percent_change; ?>
+									</span>
+								</section>
+							</div>
 						</div>
-					</div>
-				<?php
+					<?php
+				}
 			}
+		} else {
+			?>
+				<div class="watched-stock">
+					<div class="desc">
+						<h4 style="text-align:center;" class="no-watch-list-items">No stocks found on your watch list.</h4>
+					</div>
+				</div>
+			<?php
 		}
-	} else {
-	
-	}
+	?></div><?php
 }

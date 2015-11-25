@@ -75,6 +75,8 @@ var Script = function () {
 
     jQuery("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
 
+	 jQuery( '.nice-scroll-container' ).niceScroll({styler:"fb",cursorcolor:"#FFD777", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+	 
 // widget tools
 
     jQuery('.panel .tools .fa-chevron-down').click(function () {
