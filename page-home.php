@@ -49,7 +49,24 @@ get_header(); ?>
 		
 			<!-- center container -->
 			<div class="col-lg-9 main-chart">
-			
+				<!-- 2ND ROW OF PANELS -->
+					<div class="row">
+					
+						<!-- TODO PANEL -->
+						<div class="col-md-4 col-sm-4 mb watch-list-panel">
+							<!-- REVENUE PANEL -->
+							<div class="green-panel pn">
+								<div class="green-header">
+									<h5>
+										Watch List 
+										<small class="view-watch-list-link"><a href="#">view</a></small>
+									</h5>	
+								</div>
+								<?php get_homepage_watchlist(); ?>
+							</div>
+						</div><!-- /col-md-4 -->
+						
+					</div>
 			</div>
 			
 			<!-- right sidebar container -->
@@ -70,7 +87,45 @@ get_header(); ?>
 						<h2 class="stock-symbol-name"></h2>
 						<!-- populate with data on form submission -->
 						
+						<section class="stock-change"></section>
+												
 					</section>
+					
+					<!-- stock data table -->
+					<section class="stock-data-table">
+						<!-- add to watch list -->
+						<span class="manage-watch-list-button"></span>
+						
+						<!-- table data -->
+						<table class="table table-bordered table-striped table-condensed">
+							<thead>
+							  <tr>
+								  <th>Symbol Overview</th>
+								  <th></th>
+							  </tr>
+							</thead>
+							<tr>
+								<th>Ask</th>
+								<th class="stock-symbol-ask"></th>
+							</tr>
+							<tbody>
+							<tr>
+								<td>Bid</td>
+								<td class="stock-symbol-bid"></td>
+							</tr>
+							<tr>
+								<td>Days High</td>
+								<td class="stock-symbol-day-high"></td>
+							</tr>
+							<tr>
+								<td>Days Low</td>
+								<td class="stock-symbol-day-low"></td>
+							</tr>
+						  </tbody>
+					  </table>
+					</section>
+					
+					<p class="stock-data-retreived"></p>
 					
 				</div>
 			</div>

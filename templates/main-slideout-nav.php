@@ -35,7 +35,7 @@
 		  <?php } ?>
 			
 		  <li class="mt">
-			  <a href="index.html" class="active">
+			  <a href="<?php echo esc_url( site_url() ); ?>" class="active">
 				  <i class="fa fa-dashboard"></i>
 				  <span>Dashboard</span>
 			  </a>

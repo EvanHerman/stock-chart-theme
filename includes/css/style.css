@@ -2261,8 +2261,12 @@ label {
 	margin-top: 0;
 }
 
+.stock-data-table {
+	display: none;
+}
+
 /*
-*	Search NYSE Container on homepage
+*	Search Symbols Container on homepage
 */
 .search-stock.desc:hover {
 	background: none;
@@ -2285,7 +2289,6 @@ label {
 	margin-top: 1em;
 }
 
-	
 	.stock-symbol-overview .stock-name {
 		text-decoration: underline;
 	}
@@ -2293,3 +2296,125 @@ label {
 	.stock-symbol-overview .stock-symbol {
 		text-decoration: none;
 	}
+	
+/* Percentage change table */
+.stock-change {
+	display: inline-block;
+	margin: .5em 0;
+}
+
+	.stock-change .first-section {
+		float: left;
+		font-size: 3em;
+	}
+	
+	.stock-change .change-data {
+		display: inline-block;
+		float: left;
+		font-size: 1.35em;
+		margin-top: -3px;
+		text-align: right;
+	}
+	
+	.stock-change .change-value,
+	.stock-change .change-percent {
+		float: left;
+		width: 100%;
+	}
+
+.stock-change .currency-text {
+	font-size: 50%;
+	padding-left: 5px;
+}
+
+.stock-change .fa.fa-arrow-down {
+	color: #EF6464;
+}
+
+.stock-change .fa.fa-arrow-up {
+	color: #4fd98b;
+}
+
+.stock-change .fa.fa-arrow-down,
+.stock-change .fa.fa-arrow-up {
+	font-size: 40px;
+}
+
+.stock-change .negative-price-increase {
+	color: #EF6464;
+	font-weight: 600;
+}
+
+.stock-change .positive-price-increase {
+	color: #4fd98b;
+	font-weight: 600;
+}
+
+.stock-data-table .add-to-watch-list,
+.stock-data-table .remove-from-watch-list {
+	margin-bottom: 1.5em;
+}
+
+
+/*
+*	Watch list panel on homepage
+*/
+.watch-list-panel .view-watch-list-link {
+	float: right;
+	right: 25px;
+	position: absolute;
+	top: 15px;
+}
+
+	.watch-list-panel .view-watch-list-link a {
+		color: #333333;
+	}
+	
+	.watch-list-panel .watched-stock {
+		text-align: left;
+		padding-left: 10px;
+		display: inline-block;
+		width: 100%;
+		margin: 8px 0;
+	}
+	
+	.watch-list-panel .watched-stock .desc {
+		display: inline-block;
+		width: 100%;
+	}
+	
+.watch-list-panel .watched-stock .stock-name,
+.watch-list-panel .watched-stock .stock-symbol {
+	float: left;
+}
+
+.watch-list-panel .watched-stock .stock-current-price {
+	font-size: 20px;
+	color: #fefefe;
+	padding-top: 4px;
+	padding-right: 10px;
+	float: right;
+	text-align: right;
+	width: 100%;
+	display: block;
+}
+
+.watch-list-panel .watched-stock .stock-watch-change-container {
+	float: right;
+	background: #333333;
+	padding: 5px;
+}
+
+.watch-list-panel .watched-stock .watch-list-increase-price {
+	color: #4fd98b;
+}
+
+.watch-list-panel .watched-stock .watch-list-decrease-price {
+	color: #EF6464;
+}
+
+.watch-list-panel .watched-stock .stock-details {
+	display: inline-block;
+	float: right;
+	margin-top: -10px;
+}	
